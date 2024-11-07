@@ -1,0 +1,30 @@
+using Microsoft.AspNetCore.Mvc.Filters;
+using System.IO;
+
+namespace LoggingApp.Filters
+{
+    public class LogActionFilter : IActionFilter
+    {
+        private readonly string _logFilePath;
+
+        public LogActionFilter(string logFilePath = "action_log.txt")
+        {
+            _logFilePath = logFilePath;
+        }
+
+        public void OnActionExecuting(ActionExecutingContext context)
+        {
+            var actionName = context.ActionDescriptor.DisplayName;
+            var timestamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+            using (StreamWriter writer = new StreamWriter(_logFilePath, append: true))
+            {
+                writer.WriteLine($"Action: {actionName}, Time: {timestamp}");
+            }
+        }
+
+        public void OnActionExecuted(ActionExecutedContext context)
+        {
+        }
+    }
+}
