@@ -1,0 +1,17 @@
+using LoggingApp.Filters;
+using Microsoft.AspNetCore.Mvc;
+
+namespace LoggingApp.Controllers
+{
+    [ApiController]
+    [Route("[controller]")]
+    [ServiceFilter(typeof(LogActionFilter))]
+    public class TestController1 : ControllerBase
+    {
+        [HttpGet("test-action1")]
+        public IActionResult TestAction1()
+        {
+            return Ok("Test action 1 executed");
+        }
+    }
+}
