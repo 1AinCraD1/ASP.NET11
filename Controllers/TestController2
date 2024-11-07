@@ -1,0 +1,17 @@
+using LoggingApp.Filters;
+using Microsoft.AspNetCore.Mvc;
+
+namespace LoggingApp.Controllers
+{
+    [ApiController]
+    [Route("[controller]")]
+    [ServiceFilter(typeof(UniqueUserFilter))]
+    public class TestController2 : ControllerBase
+    {
+        [HttpGet("test-action2")]
+        public IActionResult TestAction2([FromQuery] string userId)
+        {
+            return Ok($"Test action 2 executed for user {userId}");
+        }
+    }
+}
